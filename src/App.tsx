@@ -22,6 +22,8 @@ import RealEstateAgents from "./pages/RealEstateAgents";
 import TherapistsCounselors from "./pages/TherapistsCounselors";
 import AnimatedGradientBackground from "@/components/AnimatedGradientBackground";
 import Clarity from '@microsoft/clarity';
+// 1. Import the ThemeProvider and useTheme hook
+import { ThemeProvider, useTheme } from "@/components/ThemeProvider";
 
 const queryClient = new QueryClient();
 
@@ -29,14 +31,12 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Scroll both the window and the overflow container
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "instant"
     });
     
-    // Also scroll the overflow container
     const container = document.querySelector('.overflow-auto');
     if (container) {
       container.scrollTo({
@@ -50,16 +50,20 @@ const ScrollToTop = () => {
   return null;
 };
 
-const App = () => {
+// 2. Create an inner component to access the theme context
+const AppLayout = () => {
+  // Get the current theme from our context
+  const { theme } = useTheme();
+
   useEffect(() => {
     Clarity.init('sa2n1xb9wf');
   }, []);
 
   return (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
+    <>
       <Toaster />
-      <Sonner theme="dark" richColors />
+      {/* 4. Use the dynamic theme for Sonner */}
+      <Sonner theme={theme} richColors />
       <AnimatedGradientBackground />
       <div className="relative h-screen overflow-auto">
         <BrowserRouter>
@@ -84,9 +88,22 @@ const App = () => {
           </Routes>
         </BrowserRouter>
       </div>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+    </>
+  );
+};
+
+
+const App = () => {
+  return (
+    // 3. Wrap the entire application with the ThemeProvider
+    <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <AppLayout />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
 };
 
 export default App;

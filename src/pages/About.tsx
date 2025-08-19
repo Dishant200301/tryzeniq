@@ -117,7 +117,7 @@ const About = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen dark:bg-gray-900">
       <Helmet>
         <title>About TryzenIQ | AI Business Automation</title>
         <meta name="description" content="Learn about TryzenIQ and our mission to revolutionize business automation with AI." />
@@ -129,10 +129,10 @@ const About = () => {
         {/* Hero Section */}
         <div className="container mx-auto max-w-7xl px-6 mb-20">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-2 sm:mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-2 sm:mb-4">
               About <span className="text-purple-600">tryzenIQ</span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
               We're the all-in-one automation platform that helps businesses of all sizes 
               streamline operations, boost revenue, and scale efficiently.
             </p>
@@ -142,25 +142,25 @@ const About = () => {
 
         {/* Features Grid */}
         <div className="container mx-auto max-w-7xl px-6 mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-12">
             Why Choose <span className="text-purple-600">Our Platform</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`${cardColors[index]} hover:bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 w-full flex flex-col`}
+                className={`${cardColors[index]} dark:bg-gray-800 hover:bg-white dark:hover:bg-gray-700 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 w-full flex flex-col`}
               >
                 <div className="flex items-center justify-center mb-4">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">{feature.title}</h3>
-                <p className="text-gray-600 mb-4 text-center">{feature.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 text-center">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-4 text-center">{feature.description}</p>
                 <div className="space-y-3">
-                  {feature.description.split('. ').map((point, pointIndex) => (
+                  {feature.description.split('. ').filter(point => point).map((point, pointIndex) => (
                     <div key={pointIndex} className="flex items-start space-x-2">
                       <Check className="w-5 h-5 text-purple-500 mt-1 flex-shrink-0" />
-                      <span className="text-gray-700 text-sm md:text-base">{point}</span>
+                      <span className="text-gray-700 dark:text-gray-300 text-sm md:text-base">{point}</span>
                     </div>
                   ))}
                 </div>
@@ -203,10 +203,10 @@ const About = () => {
                 const count = useCountUp(stat.number, 2500, inView);
                 return (
                   <div key={index} className="text-center">
-                    <div className="text-5xl md:text-6xl font-extrabold text-purple-800 mb-1">
+                    <div className="text-5xl md:text-6xl font-extrabold text-purple-800 dark:text-purple-400 mb-1">
                       {count}{stat.suffix}
                     </div>
-                    <div className="text-gray-700 text-sm md:text-base font-medium">{stat.label}</div>
+                    <div className="text-gray-700 dark:text-gray-400 text-sm md:text-base font-medium">{stat.label}</div>
                   </div>
                 );
               })}

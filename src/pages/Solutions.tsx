@@ -11,7 +11,8 @@ const solutions = [
   {
     title: "AI-Powered Automation",
     description: "Streamline your operations with intelligent automation that learns and adapts to your business needs.",
-    icon: <Zap className="w-8 h-8 text-purple-600" />,
+    // The icon's class needs to be modified at render time to apply dark mode styles
+    icon: <Zap className="w-8 h-8 text-purple-600" />, 
     features: [
       "Smart workflow automation",
       "Customizable automation rules",
@@ -76,8 +77,6 @@ const solutions = [
   }
 ];
 
-
-
 const Solutions = () => {
   const ref = React.useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
@@ -107,7 +106,9 @@ const Solutions = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    // The outermost div can optionally have a dark background, depending on how AnimatedGradientBackground is layered.
+    // Applying it to <main> usually suffices for the main content area.
+    <div className="min-h-screen"> 
       <Helmet>
         <title>AI Solutions for Business Growth | TryzenIQ</title>
         <meta name="description" content="Discover AI solutions for business growth, automation, and efficiency with TryzenIQ." />
@@ -115,14 +116,14 @@ const Solutions = () => {
       <div id="header-sentinel" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '1px', pointerEvents: 'none' }}></div>
       <AnimatedGradientBackground />
       <Header />
-      <main className="pt-32 pb-16">
+      <main className="pt-32 pb-16 dark:bg-gray-900"> {/* Apply dark background to main content area */}
         {/* Hero Section */}
         <div className="container mx-auto max-w-7xl px-6 mb-20">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-2 sm:mb-4">
-              Transform Your Business with <span className="text-purple-600">Smart Solutions</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-2 sm:mb-4 dark:text-gray-100">
+              Transform Your Business with <span className="text-purple-600 dark:text-purple-400">Smart Solutions</span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-600 mb-8 dark:text-gray-300">
               Discover our comprehensive suite of AI-powered tools designed to streamline your operations, 
               enhance client relationships, and drive growth.
             </p>
@@ -135,7 +136,10 @@ const Solutions = () => {
             {solutions.map((solution, index) => (
               <div
                 key={index}
-                className={"bg-gradient-to-br from-[#f6f3ff] to-[#e9d8fd] border-2 border-purple-400 rounded-2xl p-6 md:p-4 shadow-lg w-full max-w-sm flex flex-col mx-auto group transition-transform duration-300 ease-out"}
+                className={
+                  "bg-gradient-to-br from-[#f6f3ff] to-[#e9d8fd] border-2 border-purple-400 rounded-2xl p-6 md:p-4 shadow-lg w-full max-w-sm flex flex-col mx-auto group transition-transform duration-300 ease-out " +
+                  "dark:from-gray-800 dark:to-gray-950 dark:border-purple-700 dark:shadow-2xl"
+                }
                 style={{
                   transform: hoveredCard === index 
                     ? `perspective(1000px) rotateX(${mousePosition.y * -15}deg) rotateY(${mousePosition.x * 15}deg) scale3d(1.02, 1.02, 1.02)`
@@ -145,15 +149,24 @@ const Solutions = () => {
                 onMouseLeave={handleMouseLeave}
               >
                 <div className="flex items-center justify-center mb-4">
-                  {solution.icon}
+                  {/* Clone the icon element to add dark mode class without affecting the original definition */}
+                  {React.cloneElement(solution.icon, {
+                    className: `${solution.icon.props.className} dark:text-purple-400`
+                  })}
                 </div>
-                <h3 className="text-xl md:text-lg font-bold text-gray-900 group-hover:text-purple-800 mb-4 md:mb-2 text-center transition-all duration-300 ease-in-out">{solution.title}</h3>
-                <p className="text-gray-600 mb-4 text-center group-hover:text-gray-800 transition-all duration-300 ease-in-out">{solution.description}</p>
+                <h3 className="text-xl md:text-lg font-bold text-gray-900 group-hover:text-purple-800 mb-4 md:mb-2 text-center transition-all duration-300 ease-in-out dark:text-gray-50 dark:group-hover:text-purple-300">
+                    {solution.title}
+                </h3>
+                <p className="text-gray-600 mb-4 text-center group-hover:text-gray-800 transition-all duration-300 ease-in-out dark:text-gray-300 dark:group-hover:text-gray-100">
+                    {solution.description}
+                </p>
                 <div className="space-y-3 md:space-y-2 mb-6 md:mb-3">
                   {solution.features.map((feature, featureIndex) => (
                     <div key={featureIndex} className="flex items-center space-x-2 md:space-x-3 xl:space-x-4">
-                      <Check className="w-4 h-4 md:w-5 md:h-5 xl:w-6 xl:h-6 text-purple-500 group-hover:text-purple-700 transition-all duration-300 ease-in-out" />
-                      <span className="text-gray-700 group-hover:text-gray-800 text-xs md:text-sm xl:text-base transition-all duration-300 ease-in-out">{feature}</span>
+                      <Check className="w-4 h-4 md:w-5 md:h-5 xl:w-6 xl:h-6 text-purple-500 group-hover:text-purple-700 transition-all duration-300 ease-in-out dark:text-purple-400 dark:group-hover:text-purple-300" />
+                      <span className="text-gray-700 group-hover:text-gray-800 text-xs md:text-sm xl:text-base transition-all duration-300 ease-in-out dark:text-gray-200 dark:group-hover:text-gray-50">
+                          {feature}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -164,14 +177,18 @@ const Solutions = () => {
 
         {/* CTA Section */}
         <div className="container mx-auto max-w-7xl px-6 mt-20">
-          <div className="bg-gradient-to-r from-purple-600 to-fuchsia-600 rounded-3xl p-12 text-center text-white">
+          <div className="bg-gradient-to-r from-purple-600 to-fuchsia-600 rounded-3xl p-12 text-center text-white dark:from-purple-800 dark:to-fuchsia-900 dark:shadow-xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Ready to Transform Your Business?
             </h2>
             <p className="text-xl mb-8 text-white/90">
               Join thousands of businesses already using our solutions to drive growth and efficiency.
             </p>
-            <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100 text-lg px-8 py-6">
+            <Button 
+              size="lg" 
+              className="bg-white text-purple-600 hover:bg-gray-100 text-lg px-8 py-6 
+                         dark:bg-purple-500 dark:text-white dark:hover:bg-purple-600 dark:hover:text-gray-50"
+            >
               Get Started Today
             </Button>
           </div>

@@ -12,7 +12,7 @@ const DashboardSection = () => {
     },
     {
       title: "Clinics and Detist",
-      image: "https://images.unsplash.com/photo-1691480195680-144318cfa695?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fG1hYyUyMHNvZnR3YXJlJTIwZGFzaGJvYXJkfGVufDB8fDB8fHww"
+      image: "https://images.unsplash.com/photo-1691480195680-144318cfa695?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fG1hYyUyMHNvZnR3YXJlJTIwZGFzaGpvYXJkfGVufDB8fDB8fHww"
     },
     {
       title: "Gym & Health Coach",
@@ -37,13 +37,16 @@ const DashboardSection = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20">
+    // Apply dark mode background to the section
+    <section className="py-16 sm:py-20 dark:bg-gray-900">
       <div className="container mx-auto max-w-7xl px-4 sm:px-8">
         <div className="text-center mb-10 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            All In <span className="text-purple-600">One Platform</span>
+          {/* Apply dark mode text colors to heading and span */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 dark:text-gray-100">
+            All In <span className="text-purple-600 dark:text-purple-400">One Platform</span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8">
+          {/* Apply dark mode text color to subheading */}
+          <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 dark:text-gray-300">
             Where We Help To Automate This Business
           </p>
           <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
@@ -52,7 +55,9 @@ const DashboardSection = () => {
                 key={dashboard.title}
                 onClick={() => setCurrentDashboard(index)}
                 className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-200
-                  ${index === currentDashboard ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-700 hover:bg-purple-50'}`}
+                  ${index === currentDashboard 
+                    ? 'bg-purple-100 text-purple-700 dark:bg-purple-800 dark:text-purple-200' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-purple-50 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-purple-900'}`}
               >
                 {dashboard.title}
               </button>
@@ -66,17 +71,22 @@ const DashboardSection = () => {
               variant="outline"
               size="icon"
               onClick={prevDashboard}
-            className="rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg hover:shadow-xl transition-all absolute left-0 top-[35%] lg:top-1/2 -translate-y-1/2 z-10"
+              // Apply dark mode styles to the button and its shadow
+              className="rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg hover:shadow-xl transition-all absolute left-0 top-[35%] lg:top-1/2 -translate-y-1/2 z-10
+                         dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-600 dark:shadow-md dark:shadow-purple-950"
             >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </Button>
           {/* Card Content */}
           <div className="flex-1 w-full mx-0 sm:mx-8">
-            <div className="bg-gradient-to-br from-purple-100 to-blue-50 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl lg:max-w-4xl lg:min-h-[420px] lg:py-12 mx-auto">
+            {/* Apply dark mode background and shadow to the main card */}
+            <div className="bg-gradient-to-br from-purple-100 to-blue-50 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl lg:max-w-4xl lg:min-h-[420px] lg:py-12 mx-auto
+                       dark:from-gray-800 dark:to-gray-950 dark:shadow-2xl dark:shadow-purple-950">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
-                {/* Image Section - Now centered in mobile */}
+                {/* Image Section - Apply dark mode background and shadow to image wrapper */}
                 <div className="flex justify-center lg:justify-end order-1 lg:order-2 mb-6 lg:mb-0">
-                  <div className="rounded-xl sm:rounded-2xl p-2 sm:p-4 shadow-lg w-full max-w-[320px] sm:max-w-[400px]">
+                  <div className="rounded-xl sm:rounded-2xl p-2 sm:p-4 shadow-lg w-full max-w-[320px] sm:max-w-[400px]
+                                 dark:bg-gray-700 dark:border-gray-600 dark:shadow-xl dark:shadow-purple-900">
                     <div className="aspect-[4/3] w-full">
                       <img
                         src={dashboards[currentDashboard].image}
@@ -90,10 +100,13 @@ const DashboardSection = () => {
                 {/* Content Section */}
                 <div className="order-2 lg:order-1">
                   <div className="space-y-4 sm:space-y-6">
-                    <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                    {/* Apply dark mode text color to dashboard title */}
+                    <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
                       {dashboards[currentDashboard].title}
                     </h3>
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl text-sm sm:text-base w-full sm:w-auto">
+                    {/* Apply dark mode background and hover for the "View Demo" button */}
+                    <Button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl text-sm sm:text-base w-full sm:w-auto
+                                     dark:bg-blue-700 dark:hover:bg-blue-600 dark:text-white">
                       View Demo
                     </Button>
                   </div>
@@ -106,7 +119,9 @@ const DashboardSection = () => {
               variant="outline"
               size="icon"
               onClick={nextDashboard}
-            className="rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg hover:shadow-xl transition-all absolute right-0 top-[35%] lg:top-1/2 -translate-y-1/2 z-10"
+              // Apply dark mode styles to the button and its shadow
+              className="rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg hover:shadow-xl transition-all absolute right-0 top-[35%] lg:top-1/2 -translate-y-1/2 z-10
+                         dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-600 dark:shadow-md dark:shadow-purple-950"
             >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </Button>

@@ -27,15 +27,15 @@ import { Star } from 'lucide-react';
     },
     {
       text: "Yooooooooo, this is 🔥 @relume_io has been one of my favorite teams I've seen evolve over the years. They're carving out a tremendous groove that designers and developers can vibe in when being able to generate web concepts.",
-      author: "@rileyj_s",
-      role: "Designer & Webflow developer",
-      rating: 5
-    },
-    {
-      text: "The new @relume_io AI Sitemap and Wireframe tools are game changers! This can absolutely speed up our development and will change how we build and design @webflow sites going forward.",
-      author: "@KarimArdalan",
-      role: "Designer & Webflow developer",
-      rating: 5
+    author: "@rileyj_s",
+    role: "Designer & Webflow developer",
+    rating: 5
+  },
+  {
+    text: "The new @relume_io AI Sitemap and Wireframe tools are game changers! This can absolutely speed up our development and will change how we build and design @webflow sites going forward.",
+    author: "@KarimArdalan",
+    role: "Designer & Webflow developer",
+    rating: 5
   },
   {
     text: "TryzenIQ transformed our appointment scheduling. Our clients love the seamless booking experience, and our team saves hours every week!",
@@ -95,7 +95,14 @@ import { Star } from 'lucide-react';
 
 const getInitial = (author) => {
   if (!author) return '?';
-  return author.charAt(1).toUpperCase();
+  // Check if author starts with '@' and adjust accordingly for initials
+  if (author.startsWith('@')) {
+    // For @handles, take the character after @
+    return author.charAt(1).toUpperCase();
+  } else {
+    // For normal names, take the first letter of the first word
+    return author.charAt(0).toUpperCase();
+  }
 };
 
 const TestimonialsSection = () => {
@@ -105,13 +112,16 @@ const TestimonialsSection = () => {
   const testimonialsCol3 = testimonials.slice(2).concat(testimonials.slice(0,2));
 
   return (
-    <section className="relative py-20 font-sans overflow-hidden">
+    // Apply dark mode background to the entire section
+    <section className="relative pt-[80px] pb-[80px] font-sans overflow-hidden dark:bg-gray-900">
       <div className="container mx-auto max-w-7xl px-8 pt-12">
         <div className="text-center mb-16">
-          <div className="text-sm text-gray-600 mb-4">100+ Designers & developers trust TryzenIQ</div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          {/* Apply dark mode text colors to subheading */}
+          <div className="text-sm text-gray-600 mb-4 dark:text-gray-300">100+ Designers & developers trust TryzenIQ</div>
+          {/* Apply dark mode text colors to main heading and purple span */}
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 dark:text-gray-100">
             Helping Lumers streamline their<br />
-            workflow and <span className="text-purple-600">deliver faster</span>
+            workflow and <span className="text-purple-600 dark:text-purple-400">deliver faster</span>
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -124,7 +134,9 @@ const TestimonialsSection = () => {
               {testimonialsCol1.concat(testimonialsCol1).map((testimonial, i) => (
             <div
                   key={i} 
-                  className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8 flex flex-col gap-6 transition-transform duration-300 hover:scale-105 hover:shadow-lg group" 
+                  // Apply dark mode background, border, and shadow to each card
+                  className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8 flex flex-col gap-6 transition-transform duration-300 hover:scale-105 hover:shadow-lg group
+                             dark:bg-gray-800 dark:border-gray-700 dark:shadow-md dark:shadow-purple-950 dark:hover:shadow-lg dark:hover:shadow-purple-950" 
                   tabIndex={0} 
                   style={{willChange: 'transform'}}
             >
@@ -133,16 +145,21 @@ const TestimonialsSection = () => {
                       <Star key={idx} className="w-4 h-4 text-yellow-400 fill-current" />
                 ))}
               </div>
-                  <p className="text-gray-700 text-base leading-relaxed mb-4">"{testimonial.text}"</p>
+                  {/* Apply dark mode text color to testimonial text */}
+                  <p className="text-gray-700 text-base leading-relaxed mb-4 dark:text-gray-300">"{testimonial.text}"</p>
                   <div className="flex items-center gap-3 mt-auto">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-full flex items-center justify-center">
+                {/* Apply dark mode gradient to author initial background */}
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-full flex items-center justify-center
+                                 dark:from-purple-600 dark:to-fuchsia-500">
                   <span className="text-white font-bold text-sm">
                         {getInitial(testimonial.author)}
                   </span>
                 </div>
                 <div>
-                      <div className="font-semibold text-gray-900 text-base">{testimonial.author}</div>
-                      <div className="text-sm text-gray-500">{testimonial.role}</div>
+                      {/* Apply dark mode text color to author name */}
+                      <div className="font-semibold text-gray-900 text-base dark:text-gray-100">{testimonial.author}</div>
+                      {/* Apply dark mode text color to author role */}
+                      <div className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</div>
                 </div>
               </div>
             </div>
@@ -158,7 +175,8 @@ const TestimonialsSection = () => {
               {testimonialsCol2.concat(testimonialsCol2).map((testimonial, i) => (
                 <div 
                   key={i} 
-                  className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8 flex flex-col gap-6 transition-transform duration-300 hover:scale-105 hover:shadow-lg group" 
+                  className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8 flex flex-col gap-6 transition-transform duration-300 hover:scale-105 hover:shadow-lg group
+                             dark:bg-gray-800 dark:border-gray-700 dark:shadow-md dark:shadow-purple-950 dark:hover:shadow-lg dark:hover:shadow-purple-950" 
                   tabIndex={0} 
                   style={{willChange: 'transform'}}
                 >
@@ -167,16 +185,17 @@ const TestimonialsSection = () => {
                       <Star key={idx} className="w-4 h-4 text-yellow-400 fill-current" />
                     ))}
                   </div>
-                  <p className="text-gray-700 text-base leading-relaxed mb-4">"{testimonial.text}"</p>
+                  <p className="text-gray-700 text-base leading-relaxed mb-4 dark:text-gray-300">"{testimonial.text}"</p>
                   <div className="flex items-center gap-3 mt-auto">
-                    <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-full flex items-center justify-center
+                                     dark:from-purple-600 dark:to-fuchsia-500">
                       <span className="text-white font-bold text-sm">
                         {getInitial(testimonial.author)}
                       </span>
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-900 text-base">{testimonial.author}</div>
-                      <div className="text-sm text-gray-500">{testimonial.role}</div>
+                      <div className="font-semibold text-gray-900 text-base dark:text-gray-100">{testimonial.author}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</div>
                     </div>
                   </div>
                 </div>
@@ -192,7 +211,8 @@ const TestimonialsSection = () => {
               {testimonialsCol3.concat(testimonialsCol3).map((testimonial, i) => (
                 <div 
                   key={i} 
-                  className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8 flex flex-col gap-6 transition-transform duration-300 hover:scale-105 hover:shadow-lg group" 
+                  className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8 flex flex-col gap-6 transition-transform duration-300 hover:scale-105 hover:shadow-lg group
+                             dark:bg-gray-800 dark:border-gray-700 dark:shadow-md dark:shadow-purple-950 dark:hover:shadow-lg dark:hover:shadow-purple-950" 
                   tabIndex={0} 
                   style={{willChange: 'transform'}}
                 >
@@ -201,16 +221,17 @@ const TestimonialsSection = () => {
                       <Star key={idx} className="w-4 h-4 text-yellow-400 fill-current" />
                     ))}
                   </div>
-                  <p className="text-gray-700 text-base leading-relaxed mb-4">"{testimonial.text}"</p>
+                  <p className="text-gray-700 text-base leading-relaxed mb-4 dark:text-gray-300">"{testimonial.text}"</p>
                   <div className="flex items-center gap-3 mt-auto">
-                    <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-full flex items-center justify-center
+                                     dark:from-purple-600 dark:to-fuchsia-500">
                       <span className="text-white font-bold text-sm">
                         {getInitial(testimonial.author)}
                       </span>
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-900 text-base">{testimonial.author}</div>
-                      <div className="text-sm text-gray-500">{testimonial.role}</div>
+                      <div className="font-semibold text-gray-900 text-base dark:text-gray-100">{testimonial.author}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</div>
                     </div>
                   </div>
                 </div>

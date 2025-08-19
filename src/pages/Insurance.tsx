@@ -13,7 +13,7 @@ const Insurance = () => {
   const featuresRef = React.useRef(null);
   const benefitsRef = React.useRef(null);
   const testimonialsRef = React.useRef(null);
-  const themesRef = React.useRef(null);
+  const themesRef = React.useRef(null); // Not used in this component, but left as is
   
   const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
   const featuresInView = useInView(featuresRef, { once: true, amount: 0.3 });
@@ -85,7 +85,7 @@ const Insurance = () => {
       image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       demoUrl: "https://insure.tryzeniq.com",
       features: ["Professional Header Design", "Trust-focused Layout", "Clear Policy Information", "Contact Forms"],
-      color: "bg-blue-600",
+      color: "bg-blue-600", // These colors are for light mode and handled by ThemeSelector internally
       popular: true
     },
     {
@@ -127,7 +127,8 @@ const Insurance = () => {
       <AnimatedGradientBackground />
       <Header />
       
-      <main className="pt-32 pb-16">
+      {/* Apply overall dark mode background to main content */}
+      <main className="pt-32 pb-16 dark:bg-gray-900">
         {/* Hero Section */}
         <section ref={heroRef} className="container mx-auto max-w-7xl px-6 mb-20">
           <motion.div 
@@ -137,23 +138,33 @@ const Insurance = () => {
             className="text-center max-w-4xl mx-auto"
           >
             <div className="mb-6">
-              <Shield className="w-16 h-16 text-purple-600 mx-auto mb-4" />
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+              {/* Clone Shield icon to apply dark mode text color */}
+              {React.cloneElement(<Shield className="w-16 h-16 text-purple-600 mx-auto mb-4" />, {
+                className: "w-16 h-16 text-purple-600 mx-auto mb-4 dark:text-purple-400"
+              })}
+              {/* Apply dark mode text color to heading */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-4 dark:text-gray-100">
                 Insurance Agency
                 <br />
-                <span className="bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
+                {/* Adjust gradient colors for dark mode visibility */}
+                <span className="bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-fuchsia-400">
                   Automation Platform
                 </span>
               </h1>
             </div>
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+            {/* Apply dark mode text color to description */}
+            <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed dark:text-gray-300">
               Transform your insurance business with our comprehensive automation solution designed specifically for insurance agents, brokers, and agencies.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700">
+              {/* Apply dark mode gradient to primary button */}
+              <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700
+                                         dark:from-purple-700 dark:to-fuchsia-800 dark:hover:from-purple-600 dark:hover:to-fuchsia-700">
                 Start Free Trial
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6">
+              {/* Apply dark mode styles to outline button */}
+              <Button size="lg" variant="outline" className="text-lg px-8 py-6
+                                         dark:border-purple-700 dark:text-purple-300 dark:hover:bg-purple-900 dark:hover:text-purple-200">
                 Schedule Demo
               </Button>
             </div>
@@ -168,10 +179,11 @@ const Insurance = () => {
             transition={{ duration: 0.8 }}
           >
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {/* Apply dark mode text colors to heading and subheading */}
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 dark:text-gray-100">
                 Everything You Need to Scale Your Insurance Business
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto dark:text-gray-300">
                 Our platform combines cutting-edge technology with insurance-specific features to help you grow your agency efficiently.
               </p>
             </div>
@@ -183,13 +195,20 @@ const Insurance = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={featuresInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                  // Apply dark mode background, border, and shadow to feature cards
+                  className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2
+                             dark:bg-gray-800 dark:border dark:border-gray-700 dark:shadow-xl dark:shadow-purple-950 dark:hover:shadow-2xl dark:hover:shadow-purple-950"
                 >
                   <div className="mb-4">
-                    {feature.icon}
+                    {/* Clone feature icon to apply dark mode text color */}
+                    {React.cloneElement(feature.icon, {
+                      className: `${feature.icon.props.className} dark:text-purple-400`
+                    })}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                  {/* Apply dark mode text color to feature title */}
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 dark:text-gray-50">{feature.title}</h3>
+                  {/* Apply dark mode text color to feature description */}
+                  <p className="text-gray-600 leading-relaxed dark:text-gray-300">{feature.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -202,7 +221,9 @@ const Insurance = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={benefitsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="bg-gradient-to-r from-purple-600 to-fuchsia-600 rounded-3xl p-12 text-white"
+            // Apply dark mode gradient to benefits container
+            className="bg-gradient-to-r from-purple-600 to-fuchsia-600 rounded-3xl p-12 text-white
+                       dark:from-purple-800 dark:to-fuchsia-900"
           >
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -222,6 +243,7 @@ const Insurance = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="flex items-center space-x-3"
                 >
+                  {/* Text and icon are already white, suitable for dark mode */}
                   <Check className="w-6 h-6 text-white flex-shrink-0" />
                   <span className="text-lg">{benefit}</span>
                 </motion.div>
@@ -238,10 +260,11 @@ const Insurance = () => {
             transition={{ duration: 0.8 }}
           >
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {/* Apply dark mode text colors to heading and subheading */}
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 dark:text-gray-100">
                 What Our Insurance Clients Say
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-600 dark:text-gray-300">
                 Real feedback from insurance professionals who have transformed their businesses.
               </p>
             </div>
@@ -253,17 +276,22 @@ const Insurance = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={testimonialsInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+                  // Apply dark mode background, border, and shadow to testimonial cards
+                  className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300
+                             dark:bg-gray-800 dark:border dark:border-gray-700 dark:shadow-xl dark:shadow-purple-950 dark:hover:shadow-2xl dark:hover:shadow-purple-950"
                 >
                   <div className="flex items-center mb-4">
+                    {/* Star icons are yellow, which is generally visible on dark backgrounds */}
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                     ))}
                   </div>
-                  <p className="text-gray-600 mb-6 italic">"{testimonial.content}"</p>
+                  {/* Apply dark mode text color to testimonial content */}
+                  <p className="text-gray-600 mb-6 italic dark:text-gray-300">"{testimonial.content}"</p>
                   <div>
-                    <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-                    <p className="text-gray-500">{testimonial.role}</p>
+                    {/* Apply dark mode text colors to author name and role */}
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100">{testimonial.name}</h4>
+                    <p className="text-gray-500 dark:text-gray-400">{testimonial.role}</p>
                   </div>
                 </motion.div>
               ))}
@@ -271,7 +299,7 @@ const Insurance = () => {
           </motion.div>
         </section>
 
-        {/* Theme Selector Section */}
+        {/* Theme Selector Section (external component, no direct changes here) */}
         <ThemeSelector 
           themes={insuranceThemes}
           title="Choose Your Insurance Website Theme"
@@ -284,7 +312,10 @@ const Insurance = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-12 text-white text-center"
+            // This section already has a dark background in light mode.
+            // Apply a distinct dark mode gradient and shadow for visual differentiation.
+            className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-12 text-white text-center
+                       dark:from-purple-900 dark:to-fuchsia-950 dark:border dark:border-purple-800 dark:shadow-xl dark:shadow-fuchsia-950"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Transform Your Insurance Business?
@@ -293,10 +324,14 @@ const Insurance = () => {
               Join thousands of insurance professionals who have already automated their businesses and increased their revenue.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700">
+              {/* Apply dark mode gradient to primary button */}
+              <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700
+                                         dark:from-purple-700 dark:to-fuchsia-800 dark:hover:from-purple-600 dark:hover:to-fuchsia-700">
                 Start Your Free Trial
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6 text-black border-white hover:bg-white hover:text-gray-900">
+              {/* Apply dark mode styles to outline button, changing text/border color as needed */}
+              <Button size="lg" variant="outline" className="text-lg px-8 py-6 text-black border-white hover:bg-white hover:text-gray-900
+                                         dark:text-white dark:border-purple-700 dark:hover:bg-purple-900 dark:hover:text-purple-200">
                 Schedule a Demo
               </Button>
             </div>
@@ -309,4 +344,4 @@ const Insurance = () => {
   );
 };
 
-export default Insurance; 
+export default Insurance;

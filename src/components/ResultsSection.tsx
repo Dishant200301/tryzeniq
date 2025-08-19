@@ -38,7 +38,8 @@ const ResultsSection = () => {
       description: "Send Auto Reminders To Your Customers At Right Time",
       increase: "+42% increase",
       subtext: "More engaged potential patients today",
-      color: "from-purple-400 to-fuchsia-500",
+      color: "from-purple-400 to-fuchsia-500", // Light mode gradient
+      darkColor: "dark:from-purple-300 dark:to-fuchsia-400", // Dark mode gradient
       bgColor: "bg-purple-50"
     },
     {
@@ -49,6 +50,7 @@ const ResultsSection = () => {
       increase: "+42% increase",
       subtext: "Higher consultation booking rate today",
       color: "from-blue-500 to-purple-500",
+      darkColor: "dark:from-blue-400 dark:to-purple-400",
       bgColor: "bg-blue-50"
     },
     {
@@ -59,12 +61,14 @@ const ResultsSection = () => {
       increase: "+30% increase",
       subtext: "More patients showing up to clinic today",
       color: "from-fuchsia-500 to-purple-400",
+      darkColor: "dark:from-fuchsia-400 dark:to-purple-300",
       bgColor: "bg-fuchsia-50"
     }
   ];
 
   return (
-    <section ref={ref} className="py-20">
+    // Apply dark mode background to the section
+    <section ref={ref} className="py-20 dark:bg-gray-900">
       <div className="container mx-auto px-6 max-w-screen-xl">
         <motion.div 
           className="text-center mb-16 md:mb-10 xl:mb-12"
@@ -72,10 +76,11 @@ const ResultsSection = () => {
           animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 20 }}
           transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Proven Results That <span className="text-purple-600">Speak For Themselves</span>
+          {/* Apply dark mode text colors to heading and subheading */}
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 dark:text-gray-100">
+            Proven Results That <span className="text-purple-600 dark:text-purple-400">Speak For Themselves</span>
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             See the transformative impact our clinic automation brings to healthcare practices worldwide
           </p>
         </motion.div>
@@ -84,7 +89,9 @@ const ResultsSection = () => {
           {results.map((result, index) => (
             <div
               key={index}
-              className={`${result.bgColor} text-gray-900 rounded-2xl p-6 md:p-6 shadow-lg md:static sticky top-24 z-[${10 + index * 10}] mx-auto lg:max-w-xs xl:max-w-sm w-full md:min-h-[320px] transition-transform duration-300 ease-out`}
+              // Apply light mode background (bgColor) and dark mode background/border/shadow
+              className={`${result.bgColor} text-gray-900 rounded-2xl p-6 md:p-6 shadow-lg md:static sticky top-24 z-[${10 + index * 10}] mx-auto lg:max-w-xs xl:max-w-sm w-full md:min-h-[320px] transition-transform duration-300 ease-out
+                         dark:bg-gray-800 dark:border dark:border-gray-700 dark:shadow-xl dark:shadow-purple-950`}
               style={{
                 transform: hoveredCard === index 
                   ? `perspective(1000px) rotateX(${mousePosition.y * -15}deg) rotateY(${mousePosition.x * 15}deg) scale3d(1.02, 1.02, 1.02)`
@@ -93,17 +100,23 @@ const ResultsSection = () => {
               onMouseMove={(e) => handleMouseMove(e, index)}
               onMouseLeave={handleMouseLeave}
             >
-              <div className={`w-12 h-12 bg-gradient-to-r ${result.color} rounded-xl flex items-center justify-center mb-4 shadow-lg`}>
+              <div className={`w-12 h-12 bg-gradient-to-r ${result.color} ${result.darkColor} rounded-xl flex items-center justify-center mb-4 shadow-lg`}>
                 <result.icon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">{result.title}</h3>
-              <div className={`text-4xl font-bold bg-gradient-to-r ${result.color} bg-clip-text text-transparent mb-3`}>
+              {/* Apply dark mode text color to title */}
+              <h3 className="text-xl font-bold text-gray-800 mb-3 dark:text-gray-50">{result.title}</h3>
+              {/* Apply dark mode gradient to number text */}
+              <div className={`text-4xl font-bold bg-gradient-to-r ${result.color} ${result.darkColor} bg-clip-text text-transparent mb-3`}>
                 {result.number}
               </div>
-              <p className="text-gray-600 mb-4 leading-relaxed text-sm">{result.description}</p>
-              <div className="border-t border-gray-200 pt-3">
-                <div className="text-sm md:text-lg font-semibold text-fuchsia-600 mb-1">{result.increase}</div>
-                <div className="text-sm md:text-base text-gray-500">{result.subtext}</div>
+              {/* Apply dark mode text color to description */}
+              <p className="text-gray-600 mb-4 leading-relaxed text-sm dark:text-gray-300">{result.description}</p>
+              {/* Apply dark mode border color to divider */}
+              <div className="border-t border-gray-200 pt-3 dark:border-gray-700">
+                {/* Apply dark mode text color to increase percentage */}
+                <div className="text-sm md:text-lg font-semibold text-fuchsia-600 mb-1 dark:text-fuchsia-400">{result.increase}</div>
+                {/* Apply dark mode text color to subtext */}
+                <div className="text-sm md:text-base text-gray-500 dark:text-gray-400">{result.subtext}</div>
               </div>
             </div>
           ))}

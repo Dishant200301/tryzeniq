@@ -27,9 +27,7 @@ const Index = () => {
       <DashboardSection />
       <NicheSection />
       <ComparisonSection />
-      <div className="mt-16">
         <PricingSection />
-      </div>
       <TestimonialsSection />
       <Footer />
     </div>

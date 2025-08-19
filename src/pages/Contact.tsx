@@ -9,6 +9,7 @@ import { Mail, Phone, MapPin, Send, Clock, MessageSquare, Loader2 } from 'lucide
 import AnimatedGradientBackground from '@/components/AnimatedGradientBackground';
 import { toast } from 'sonner';
 import { Helmet } from 'react-helmet-async';
+import React from 'react'; // Import React for React.cloneElement
 
 const countries = [
   { code: "AF", name: "Afghanistan" },
@@ -301,14 +302,16 @@ const Contact = () => {
       <div id="header-sentinel" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '1px', pointerEvents: 'none' }}></div>
       <AnimatedGradientBackground />
       <Header />
-      <main className="pt-32 pb-16">
+      {/* Apply dark mode background to main content area */}
+      <main className="pt-32 pb-16 dark:bg-gray-900"> 
         {/* Hero Section */}
         <div className="container mx-auto max-w-7xl px-6 mb-20">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-2 sm:mb-4">
-              Contact <span className="text-purple-600">Us</span>
+            {/* Apply dark mode text colors */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-2 sm:mb-4 dark:text-gray-100">
+              Contact <span className="text-purple-600 dark:text-purple-400">Us</span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-600 mb-8 dark:text-gray-300">
               We'd love to hear from you! Fill out the form and our team will get back to you soon.
             </p>
           </div>
@@ -318,28 +321,31 @@ const Contact = () => {
         <div className="max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Contact Form Card */}
-            <div className="md:col-span-2 bg-purple-200 rounded-3xl shadow-2xl p-8 flex flex-col justify-center">
+            {/* Apply dark mode background and shadow */}
+            <div className="md:col-span-2 bg-purple-200 rounded-3xl shadow-2xl p-8 flex flex-col justify-center dark:bg-gray-800 dark:border dark:border-gray-700 dark:shadow-none">
               <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                    {/* Apply dark mode label text color */}
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300">Full Name *</label>
                     <Input
                       type="text"
                       id="name"
                       placeholder="Your full name"
-                      className="bg-purple-100"
+                      // Apply dark mode input styles
+                      className="bg-purple-100 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder:text-gray-400"
                       value={formData.name}
                       onChange={handleChange}
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300">Email *</label>
                     <Input
                       type="email"
                       id="email"
                       placeholder="Your email address"
-                      className="bg-purple-100"
+                      className="bg-purple-100 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder:text-gray-400"
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -349,37 +355,41 @@ const Contact = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300">Phone Number *</label>
                     <Input
                       type="tel"
                       id="phone"
                       placeholder="Your phone number"
-                      className="bg-purple-100"
+                      className="bg-purple-100 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder:text-gray-400"
                       value={formData.phone}
                       onChange={handleChange}
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                    <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300">Country</label>
                     <Select value={formData.country} onValueChange={handleCountryChange}>
-                      <SelectTrigger id="country" className="bg-purple-100">
+                      <SelectTrigger id="country" 
+                        className="bg-purple-100 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
                         <SelectValue placeholder="Select a country" />
                       </SelectTrigger>
-                      <SelectContent className="bg-purple-100">
-                        {countries.map(c => <SelectItem key={c.code} value={c.name} className="focus:bg-purple-200">{c.name}</SelectItem>)}
+                      <SelectContent className="bg-purple-100 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                        {countries.map(c => <SelectItem key={c.code} value={c.name} 
+                          className="focus:bg-purple-200 dark:focus:bg-purple-700 dark:text-gray-100 dark:hover:bg-purple-700">
+                            {c.name}
+                          </SelectItem>)}
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300">Subject *</label>
                   <Input
                     type="text"
                     id="subject"
                     placeholder="Message subject"
-                    className="bg-purple-100"
+                    className="bg-purple-100 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder:text-gray-400"
                     value={formData.subject}
                     onChange={handleChange}
                     required
@@ -387,12 +397,12 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300">Message *</label>
                   <Textarea
                     id="message"
                     placeholder="How can we help you?"
                     rows={6}
-                    className="bg-purple-100"
+                    className="bg-purple-100 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder:text-gray-400"
                     value={formData.message}
                     onChange={handleChange}
                     required
@@ -403,7 +413,8 @@ const Contact = () => {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-400 hover:shadow-lg text-white font-bold"
+                    className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-400 hover:shadow-lg text-white font-bold
+                               dark:from-purple-700 dark:to-fuchsia-800 dark:text-gray-100 dark:hover:from-purple-600 dark:hover:to-fuchsia-700 dark:hover:shadow-md dark:hover:shadow-purple-950"
                     disabled={loading}
                   >
                     {loading ? (
@@ -422,25 +433,34 @@ const Contact = () => {
               </form>
             </div>
             {/* Contact Info Card */}
-            <div className="bg-purple-100 rounded-3xl shadow-xl p-8 flex flex-col items-center max-w-sm w-full mx-auto h-full justify-between py-12">
+            {/* Apply dark mode background and shadow */}
+            <div className="bg-purple-100 rounded-3xl shadow-xl p-8 flex flex-col items-center max-w-sm w-full mx-auto h-full justify-between py-12 dark:bg-gray-800 dark:border dark:border-gray-700 dark:shadow-none">
               <div className="flex flex-col items-center mb-6">
                 <a href="mailto:tryzeniq@gmail.com" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center group mb-2">
-                  <Mail className="w-10 h-10 text-purple-500 mb-2 group-hover:text-purple-700 transition-colors" />
-                  <h2 className="text-xl font-bold text-gray-900 mb-1">Email</h2>
-                  <span className="text-gray-700 text-center group-hover:text-purple-700 transition-colors">tryzeniq@gmail.com</span>
+                  {/* Clone and apply dark mode class to icon */}
+                  {React.cloneElement(<Mail className="w-10 h-10 text-purple-500 mb-2 group-hover:text-purple-700 transition-colors" />, {
+                    className: "w-10 h-10 text-purple-500 mb-2 group-hover:text-purple-700 transition-colors dark:text-purple-400 dark:group-hover:text-purple-300"
+                  })}
+                  <h2 className="text-xl font-bold text-gray-900 mb-1 dark:text-gray-50">Email</h2>
+                  <span className="text-gray-700 text-center group-hover:text-purple-700 transition-colors dark:text-gray-300 dark:group-hover:text-purple-300">tryzeniq@gmail.com</span>
                 </a>
               </div>
               <div className="flex flex-col items-center mb-6">
                 <a href="tel:+916359185945" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center group mb-2">
-                  <Phone className="w-10 h-10 text-purple-500 mb-2 group-hover:text-purple-700 transition-colors" />
-                  <h2 className="text-xl font-bold text-gray-900 mb-1">Phone</h2>
-                  <span className="text-gray-700 text-center group-hover:text-purple-700 transition-colors">+91 63591 85945</span>
+                  {React.cloneElement(<Phone className="w-10 h-10 text-purple-500 mb-2 group-hover:text-purple-700 transition-colors" />, {
+                    className: "w-10 h-10 text-purple-500 mb-2 group-hover:text-purple-700 transition-colors dark:text-purple-400 dark:group-hover:text-purple-300"
+                  })}
+                  <h2 className="text-xl font-bold text-gray-900 mb-1 dark:text-gray-50">Phone</h2>
+                  <span className="text-gray-700 text-center group-hover:text-purple-700 transition-colors dark:text-gray-300 dark:group-hover:text-purple-300">+91 63591 85945</span>
                 </a>
               </div>
               <div className="flex flex-col items-center">
-                <MapPin className="w-10 h-10 text-purple-500 mb-2" />
-                <h2 className="text-xl font-bold text-gray-900 mb-1">Address</h2>
-                <p className="text-gray-700 text-center">315, Shivalik, Dabholi<br/> Surat, Gujarat 395004</p>
+                  {/* MapPin doesn't have a group-hover, so just apply dark text */}
+                  {React.cloneElement(<MapPin className="w-10 h-10 text-purple-500 mb-2" />, {
+                    className: "w-10 h-10 text-purple-500 mb-2 dark:text-purple-400"
+                  })}
+                <h2 className="text-xl font-bold text-gray-900 mb-1 dark:text-gray-50">Address</h2>
+                <p className="text-gray-700 text-center dark:text-gray-300">315, Shivalik, Dabholi<br/> Surat, Gujarat 395004</p>
               </div>
             </div>
           </div>

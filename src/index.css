@@ -268,3 +268,10 @@ html, body {
   min-height: 100vh;
   min-height: 100dvh;
 }
+
+html {
+  @apply transition-colors duration-500 ease-in-out;
+}
+body {
+  @apply transition-colors duration-500 ease-in-out;
+}

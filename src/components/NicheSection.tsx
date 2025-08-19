@@ -1,7 +1,7 @@
 import { Check, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 const niches = [
   {
@@ -115,35 +115,10 @@ const niches = [
   }
 ];
 
-const cardColors = [
-  'bg-purple-100',
-  'bg-purple-200',
-  'bg-purple-100',
-  'bg-purple-200',
-  'bg-purple-100',
-  'bg-purple-200',
-  'bg-purple-100',
-  'bg-purple-200',
-  'bg-purple-100',
-];
-
-// Fixed random arrangement of colors
-const randomColors = [
-  'bg-cyan-200',
-  'bg-emerald-200',
-  'bg-rose-200',
-  'bg-teal-100',
-  'bg-orange-200',
-  'bg-blue-100',
-];
-
 const NicheSection = ({ hideTitle = false }) => {
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  // Banner image paths for each card
- 
 
   // Banner image mapping for each card by title
   const bannerMap = {
@@ -185,14 +160,14 @@ const NicheSection = ({ hideTitle = false }) => {
   };
 
   return (
-    <section className="py-0 -mt-5 mt-14">
+    <section className="py-0 -mt-5 dark:bg-gray-900">
       <div className="container mx-auto px-6 max-w-screen-xl">
         {!hideTitle && (
           <div className="text-center mb-16 md:mb-10 xl:mb-12">
-           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            All In <span className="text-purple-600">One Platform</span>
+           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            All In <span className="text-purple-600 dark:text-purple-400">One Platform</span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8">
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8">
             Where We Help To Automate This Business
           </p>
           </div>
@@ -201,7 +176,7 @@ const NicheSection = ({ hideTitle = false }) => {
           {niches.map((niche, index) => (
             <div
               key={index}
-              className={"relative bg-gradient-to-br from-[#f6f3ff] to-[#e9d8fd] border-2 border-purple-400 rounded-2xl shadow-lg md:static sticky top-24 mx-auto lg:max-w-xs xl:max-w-sm w-full group min-h-[380px] flex flex-col transition-transform duration-300 ease-out"}
+              className={"relative bg-gradient-to-br from-[#f6f3ff] to-[#e9d8fd] dark:bg-gradient-to-br dark:from-gray-900 dark:to-[#3b0764] border-2 border-purple-200 dark:border-purple-900 rounded-2xl shadow-lg md:static sticky top-24 mx-auto lg:max-w-xs xl:max-w-sm w-full group min-h-[380px] flex flex-col transition-transform duration-300 ease-out"}
               style={{
                 transform: hoveredCard === index 
                   ? `perspective(1000px) rotateX(${mousePosition.y * -15}deg) rotateY(${mousePosition.x * 15}deg) scale3d(1.02, 1.02, 1.02)`
@@ -228,12 +203,12 @@ const NicheSection = ({ hideTitle = false }) => {
                   />
                 </div>
                 <div className="relative z-10 pr-0">
-                  <h3 className="text-xl md:text-lg font-bold text-gray-900 group-hover:text-purple-800 mb-4 md:mb-2 text-left transition-all duration-300 ease-in-out drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)]">{niche.title}</h3>
+                  <h3 className="text-xl md:text-lg font-bold font-serif text-gray-900 dark:text-white group-hover:text-purple-800 dark:group-hover:text-purple-300 mb-4 md:mb-2 text-left transition-all duration-300 ease-in-out drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)] dark:drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">{niche.title}</h3>
                   <div className="space-y-3 md:space-y-2 mb-6 md:mb-3">
                     {niche.features.map((feature, i) => (
                       <div key={i} className="flex items-center space-x-2 md:space-x-3 xl:space-x-4">
-                        <Check className="w-4 h-4 md:w-5 md:h-5 xl:w-6 xl:h-6 text-purple-500 group-hover:text-purple-700 transition-all duration-300 ease-in-out" />
-                        <span className="text-gray-700 group-hover:text-gray-800 text-xs md:text-sm xl:text-base transition-all duration-300 ease-in-out drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)]">{feature}</span>
+                        <Check className="w-4 h-4 md:w-5 md:h-5 xl:w-6 xl:h-6 text-purple-500 dark:text-purple-400 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-all duration-300 ease-in-out" />
+                        <span className="text-gray-700 dark:text-gray-200 group-hover:text-gray-800 dark:group-hover:text-gray-100 text-xs md:text-sm xl:text-base transition-all duration-300 ease-in-out drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)] dark:drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -262,4 +237,4 @@ const NicheSection = ({ hideTitle = false }) => {
   );
 };
 
-export default NicheSection; 
+export default NicheSection;
